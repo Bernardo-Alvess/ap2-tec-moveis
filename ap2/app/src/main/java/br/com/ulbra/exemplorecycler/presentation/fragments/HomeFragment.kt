@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
             list = mainViewModel.getProducts(),
             goToDetails = ::goToDetail,
             removeItem = { mainViewModel.removeItem(it) },
-            addItem = {mainViewModel.addItem(it)}
+            addItem = { mainViewModel.addItem(it) }
         )
 
         val recycler = view.findViewById<RecyclerView>(R.id.rcProduct)

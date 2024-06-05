@@ -14,8 +14,6 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import br.com.ulbra.exemplorecycler.R
@@ -23,7 +21,6 @@ import br.com.ulbra.exemplorecycler.configureToolbar
 import br.com.ulbra.exemplorecycler.data.Product
 import br.com.ulbra.exemplorecycler.presentation.adapters.ProductAdapter
 import br.com.ulbra.exemplorecycler.presentation.viewmodels.MainViewModel
-import com.bumptech.glide.Glide
 
 class AdicionarFragment : Fragment() {
 
@@ -41,10 +38,11 @@ class AdicionarFragment : Fragment() {
         (requireActivity() as AppCompatActivity).configureToolbar("Adicionar", false)
 
         val imageView = view.findViewById<ImageView>(R.id.imageView)
-        val button = view.findViewById<ImageButton>(R.id.imageButton)
-        val name = view.findViewById<EditText>(R.id.productName)
-        val price = view.findViewById<EditText>(R.id.productPrice)
+        val imageButton = view.findViewById<ImageButton>(R.id.imageButton)
+        val productName = view.findViewById<EditText>(R.id.productName)
+        val productPrice = view.findViewById<EditText>(R.id.productPrice)
         val sendProductButton = view.findViewById<Button>(R.id.sendProductButton)
+//        val rcProduct = view.findViewById<RecyclerView>(R.id.rcProduct)
 
         var imageUri = ""
 
@@ -65,19 +63,23 @@ class AdicionarFragment : Fragment() {
             }
         }
 
-        button.setOnClickListener{
+        imageButton.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         sendProductButton.setOnClickListener{
-            val product = Product(imageUri, name.text.toString(), price.text.toString())
+            val product = Product(imageUri, productName.text.toString(), productPrice.text.toString())
             adapter.insertItem(product)
             imageView.setImageURI(null)
-            name.setText(null)
-            price.setText(null)
+            productName.setText(null)
+            productPrice.setText(null)
 
             Toast.makeText(context, product.toString(), Toast.LENGTH_LONG).show()
         }
+//
+//        if(isAdded){
+//            rcProduct.adapter = adapter
+//        }
     }
 
 }
